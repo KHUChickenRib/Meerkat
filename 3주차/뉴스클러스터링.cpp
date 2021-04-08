@@ -26,7 +26,7 @@ vector<string> makeset(string str) {
 int solution(string str1, string str2) {
     int answer = 0;
     vector<string> set1, set2;      // 문자열 slicing set
-    vector<string> temp1, temp2;    // 임시 저장 (교집합, 합집합)
+    vector<string> temp;            // 임시 저장 (교집합, 합집합)
     int i, j;                       // 반복문 변수
 
     // 문자열 2개 집합 만들기
@@ -44,28 +44,20 @@ int solution(string str1, string str2) {
         }
         // 합집합 케이스
         if (j == set1.size()) {
-            temp1.push_back(set2[i]);
+            temp.push_back(set2[i]);
             set2.erase(set2.begin() + i);
             i--;
         }
         // 교집합 케이스
         else {
-            temp2.push_back(set2[i]);
-            set2.erase(set2.begin() + i);
-            temp2.push_back(set1[j]);
+            temp.push_back(set1[j]);
             set1.erase(set1.begin() + j);
-            i--;
         }
     }
 
     // 합집합 처리
-    for (i = 0; i < temp1.size(); i++)
+    for (i = 0; i < temp.size(); i++)
         set1.push_back(temp1[i]);
-    // 교집합 처리
-    for (i = 0; i < temp2.size(); i += 2) {
-        set1.push_back(temp2[i]);
-        set2.push_back(temp2[i]);
-    }
 
     answer = (int)((double)set2.size() / set1.size() * 65536);
     return answer;
