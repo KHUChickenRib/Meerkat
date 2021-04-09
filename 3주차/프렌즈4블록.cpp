@@ -3,12 +3,11 @@
 
 using namespace std;
 
-// 지워야 하는 대상 파악 (대상인 경우는 각 원소를 1로) -> update시 똑같은 과정이 필요함
-vector<vector<int>> count_board(int m, int n, vector<string> board) {
+// board 스캔
+vector<vector<int>> scan_board(int m, int n, vector<string> board) {
     int i, j;
-    vector<vector<int>> result(m, vector<int>(n, 0)); // (2차원 배열 모두 0으로 초기화)
+    vector<vector<int>> result(m, vector<int>(n, 0));
 
-    // scan하여 각 board 원소 파악
     for (i = 0; i < m - 1; i++) {
         for (j = 0; j < n - 1; j++) {
             // 알파벳 체크 (참고로 대문자는 1을 return)
@@ -27,15 +26,14 @@ vector<vector<int>> count_board(int m, int n, vector<string> board) {
     return result;
 }
 
-// 스캔 하여 카운팅
-int scan_board(int m, int n, vector<string> board) {
+// 지워야 하는 블록 카운팅
+int count_board(int m, int n, vector<string> board) {
     int i, j;
     vector<vector<int>> cnt(m, vector<int>(n, 0));
     int result = 0;
 
-    cnt = count_board(m, n, board);     // scan하여 조사
-    
-    // 1인 갯수 파악
+    cnt = scan_board(m, n, board);
+
     for (i = 0; i < m; i++) {
         for (j = 0; j < n; j++) {
             if (cnt[i][j] == 1)
@@ -50,15 +48,16 @@ void update_board(int m, int n, vector<string>& board) {
     int i, j, k;
     vector<vector<int>> cnt(m, vector<int>(n, 0));
 
-    cnt = count_board(m, n, board);     // scan하여 update 대상 조사
+    // 1차적으로 먼저 스캔 선행
+    cnt = scan_board(m, n, board);
 
     for (i = 0; i < m; i++) {
         for (j = 0; j < n; j++) {
-            // update 필요한 경우
             if (cnt[i][j] == 1) {
+                // 맨 윗줄
                 if (i == 0)
                     board[0][j] = -1;
-                // 위에서 부터 내려오기
+                // 나머지는 위에서 내리기
                 for (k = i; k > 0; k--) {
                     board[k][j] = board[k - 1][j];
                     board[k - 1][j] = ' ';
@@ -73,13 +72,13 @@ int solution(int m, int n, vector<string> board) {
     int temp;
 
     while (1) {
-        temp = scan_board(m, n, board);     // 테이블 스캔
+        temp = count_board(m, n, board);
 
-        // 더 이상 없는 경우
         if (temp == 0)
             break;
         else
-            update_board(m, n, board);      // 테이블 update
+            update_board(m, n, board);
+
         answer += temp;
     }
     return answer;
