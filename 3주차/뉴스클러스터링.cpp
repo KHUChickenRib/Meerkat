@@ -57,7 +57,7 @@ int solution(string str1, string str2) {
 
     // 합집합 처리
     for (i = 0; i < temp.size(); i++)
-        set1.push_back(temp1[i]);
+        set1.push_back(temp[i]);
 
     answer = (int)((double)set2.size() / set1.size() * 65536);
     return answer;
