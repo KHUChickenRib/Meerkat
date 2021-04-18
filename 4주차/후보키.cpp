@@ -39,6 +39,7 @@ bool check(string str, vector<vector<string>> relation) {
     }
 
     // 활성 bit에 해당되는 컬럼을 조합하여 집합에 insert
+    // ex) 이름: meerkat, 과목: Database -> meerkatDatabase로 각 컬럼의 문자열을 합쳐서 유일성 체크
     for (i = 0; i < relation.size(); i++) {
         for (j = 0; j < index.size(); j++)
             temp += relation[i][index[j]];
