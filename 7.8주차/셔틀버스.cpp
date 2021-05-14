@@ -32,7 +32,7 @@ string solution(int n, int t, int m, vector<string> timetable) {
     vector<int> convert_timetable;
     vector<int> bus_timetable;
     int boardTime;
-    int min, max;
+    int max;
     int i, j;
 
     convert_timetable = convert(timetable);
@@ -43,7 +43,6 @@ string solution(int n, int t, int m, vector<string> timetable) {
     // 버스 탑승시간을 돌면서 탈 시간을 정함
     for (i = 0; i < bus_timetable.size(); i++) {
         int cnt = 0;
-        min = convert_timetable[0];
 
         // 해당 시간에 태울수 있는 승객 확인 (m명타면 break)
         for (j = 0; j < convert_timetable.size(); j++) {
@@ -63,7 +62,7 @@ string solution(int n, int t, int m, vector<string> timetable) {
             else
                 boardTime = bus_timetable[i];
         }
-        // 막차X + 승객이 남은 경우
+        // 막차X
         else {
             for (j = 0; j < cnt; j++)
                 convert_timetable.erase(convert_timetable.begin());
