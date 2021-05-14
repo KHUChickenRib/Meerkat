@@ -54,15 +54,12 @@ string solution(int n, int t, int m, vector<string> timetable) {
                 break;
         }
 
-        // 막차인 경우
+        // 막차 탑승 계산
         if (i == bus_timetable.size() - 1) {
-            // 모든 사람이 같은 시간에 탑승
-            if (cnt == m && min == max && min <= bus_timetable[i])
-                boardTime = min - 1;
-            // 마지막 탑승 승객을 빼야하는 경우
-            else if (cnt == m && max <= bus_timetable[i])
+            // 승객이 꽉찬 경우 마지막 사람보다 1분 빨리
+            if (cnt == m)
                 boardTime = max - 1;
-            // 탑승 승객이 남는 경우
+            // 남은 경우에는 막차 시간에 맞춰서
             else
                 boardTime = bus_timetable[i];
         }
