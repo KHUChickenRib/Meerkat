@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// ³ëµå Á¤º¸
+// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 struct TreeNode {
     int x;
     int y;
@@ -14,11 +14,11 @@ struct TreeNode {
     TreeNode* right;
 };
 
-// ºÎ¸ð³ëµå left, right Æ÷ÀÎÅÍ ±¸¼º
+// ï¿½Î¸ï¿½ï¿½ï¿½ left, right ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 void addNode(TreeNode* root, TreeNode* node) {
-    TreeNode* pre = NULL;   // ºÎ¸ð³ëµå ÁöÁ¤
+    TreeNode* pre = NULL;   // ï¿½Î¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     
-    // Æ÷ÀÎÅÍ ÀÌµ¿
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     while (root != NULL) {
         pre = root;
         if (node->x < pre->x)
@@ -27,14 +27,14 @@ void addNode(TreeNode* root, TreeNode* node) {
             root = root->right;
     }
 
-    // ºÎ¸ð³ëµå¿¡¼­ ¿ÞÂÊ,¿À¸¥ÂÊÀº xÁÂÇ¥·Î È®ÀÎ
+    // ï¿½Î¸ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xï¿½ï¿½Ç¥ï¿½ï¿½ È®ï¿½ï¿½
     if (node->x < pre->x)
         pre->left = node;
     else
         pre->right = node;
 }
 
-// preorder ÇÔ¼ö
+// preorder ï¿½Ô¼ï¿½
 void preorder(vector<int>& v, TreeNode* root) {
     if (root != NULL) {
         v.push_back(root->index);
@@ -43,7 +43,7 @@ void preorder(vector<int>& v, TreeNode* root) {
     }
 }
 
-// postorder ÇÔ¼ö
+// postorder ï¿½Ô¼ï¿½
 void postorder(vector<int>& v, TreeNode* root) {
     if (root != NULL) {
         postorder(v, root->left);
@@ -52,7 +52,7 @@ void postorder(vector<int>& v, TreeNode* root) {
     }
 }
 
-// sort½Ã yÁÂÇ¥ ºñ±³ (³»¸²Â÷¼ø)
+// sortï¿½ï¿½ yï¿½ï¿½Ç¥ ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 bool cmp(TreeNode& a, TreeNode& b) {
     return a.y > b.y;
 }
@@ -64,15 +64,15 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo) {
 
     int i;
 
-    // Æ®¸® ±¸¼º (left, right´Â ¸ðµÎ NULL) »óÅÂ
+    // Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (left, rightï¿½ï¿½ ï¿½ï¿½ï¿½ NULL) ï¿½ï¿½ï¿½ï¿½
     for (i = 0; i < nodeinfo.size(); i++)
         tree.push_back({ nodeinfo[i][0], nodeinfo[i][1], i + 1 });
 
-    // yÁÂÇ¥ ³»¸²Â÷¼øÀ¸·Î Á¤·Ä ÈÄ root Ã£±â
+    // yï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ root Ã£ï¿½ï¿½
     sort(tree.begin(), tree.end(), cmp);
     root = tree[0];
 
-    // left, right Æ÷ÀÎÅÍ ÁöÁ¤
+    // left, right ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     for (i = 1; i < tree.size(); i++)
         addNode(&root, &tree[i]);
 
